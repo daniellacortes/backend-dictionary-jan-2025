@@ -40,3 +40,7 @@ Diante disso, a princípio, para o projeto será utilizado:
 
 Para a instalação do projeto, foi iniciado dentro do terminal Ubuntu (usando WSL2) um projeto Laravel usando Sail para a conteinerização no Docker.
 Na sequência, o projeto iniciado foi sincronizado com o repositório remoto do GitHub.
+
+### Criação do Banco de Dados
+Localmente, foi criado o banco de dados e o arquivo .env foi configurado para que o projeto possa se conectar ao banco de dados.
+Após, foi criada a tabela "Words" através de uma migration para que o projeto possa ser executado, bem como o *model* e o *factory* da mencionada tabela.
