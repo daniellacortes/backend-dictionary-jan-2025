@@ -44,3 +44,19 @@ Na sequência, o projeto iniciado foi sincronizado com o repositório remoto do 
 ### Criação do Banco de Dados
 Localmente, foi criado o banco de dados e o arquivo .env foi configurado para que o projeto possa se conectar ao banco de dados.
 Após, foi criada a tabela "Words" através de uma migration para que o projeto possa ser executado, bem como o *model* e o *factory* da mencionada tabela.
+
+### Importação das Palavras
+Na sequência, foi criado um comando que possui uma função para que o projeto possa importar as palavras do [arquivo](https://raw.githubusercontent.com/dwyl/english-words/refs/heads/master/words_dictionary.json) disponibilizado no repositório da API Free Dictionay API para o banco de dados.
+
+Como o arquivo estava em formato JSON, foi necessário realizar o tratamento dos dados no arquivo de Comando para que fosse possível importar as palavras para o banco de dados.
+
+Ocorre que ao tentar inserir as palavras no banco de dados, foi identificado que o arquivo possuía mais de 300.000 palavras, o que resultou em um tempo de execução muito grande e, por consequência, um erro de timeout.
+
+Diante disso, o array de palavras foi dividido em partes menores, através do método array_chunck, e, em seguida, inseridas no banco de dados. Arbitrariamente foi estipulado o tamanho do array de 1000 palavras, o que gerou resultados satisfatórios. Devido ao curto prazo para conclusão do projeto, não foi possível implementar um tratamento para que o tamanho do array fosse dinâmico, de modo que o tempo de execução atingisse a sua melhor performance.
+
+Antes de importar as palavras, foi criado um comando para que o projeto possa limpar a tabela "Words" do banco de dados. Essa decisão foi tomada tanto para que não fossem inseridas na tabela palavras duplicadas, quanto para que a tabela não contasse eventualmente palavras retiradas do arquivo, o que poderia gerar inconsistências.
+
+#### Testando a Importação das Palavras
+Foi criado um teste unitário para que o projeto possa testar o comando de importação de palavras a fim de verificar se as palavras foram importadas corretamente, se o banco de dados está sendo devidamente limpo e se os erros estão sendo tratados corretamente.
+
+Para isso foi usado o PHPUnit e a resposta da requisição foi mockada para que o teste fosse executado de forma mais rápida.
